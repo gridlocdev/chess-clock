@@ -2,13 +2,34 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { PlayerTimerComponent } from './player-timer/player-timer.component'
+import { NavbarComponent } from './navbar/navbar.component'
+
+/*
+Imported Material components: 
+
+Components: Button, Card. Snackbar, Toolbar
+*/
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlayerTimerComponent,
+    NavbarComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

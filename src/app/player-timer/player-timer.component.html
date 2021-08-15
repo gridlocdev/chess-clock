@@ -1,0 +1,19 @@
+<mat-card>
+    <h3>
+        <span *ngIf="minutes >= 10">
+            {{ minutes }}
+        </span>
+        <span *ngIf="minutes < 10">
+            {{ "0" + minutes }}
+        </span>
+        :
+        <span *ngIf="seconds >= 10">
+            {{ seconds }}
+        </span>
+        <span *ngIf="seconds < 10">
+            {{ "0" + seconds }}
+        </span>
+    </h3>
+
+    <h3> {{ active }} </h3>
+</mat-card>
