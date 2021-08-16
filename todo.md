@@ -12,6 +12,4 @@ When either player's timer hits 0, both timers pause and a winner message is dis
 
 ## TODO
 
-- Create an end-game state, and display either a modal or a snackbar
-- Replace the text with icons for the action buttons
-- Add an icon of a chess piece on the navigation bar
+- Add an "Info" section to describe the keybinds for "enter" and "spacebar"
