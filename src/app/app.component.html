@@ -1,12 +1,60 @@
-<app-navbar></app-navbar>
+<div name="body" style="height: 100%;">
+  <app-navbar></app-navbar>
 
-<mat-card style="margin: 10% 20%; padding: 2.5%">
+  <form style="display: flex; justify-content: center; align-items: center;">
+    <mat-label>Starting time:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label>Minutes</mat-label>
+      <input matInput placeholder="Number of Minutes" (keyup)="validateIsKeyPressNumber($event, 'minutes')"
+        [value]="defaultMinutes">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Seconds</mat-label>
+      <input matInput placeholder="Number of Seconds" (keyup)="validateIsKeyPressNumber($event, 'seconds')"
+        [value]="defaultSeconds">
+    </mat-form-field>
+    <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
+      Switch starting player
+    </button>
+  </form>
 
-  <div style="justify-content: space-around; display: flex; margin: 2.5% 0">
-    <app-player-timer></app-player-timer>
-    <app-player-timer></app-player-timer>
+
+  <div>
+
+    <div style="justify-content: space-around; display: flex; margin: 2.5% 0">
+      <app-player-timer [playerName]="'Player 1'" [active]="player1TimerActive" [defaultMinutes]="defaultMinutes"
+        [defaultSeconds]="defaultSeconds" [gameState]="gameState" (onEndOfGame)="endGame($event)">
+      </app-player-timer>
+      <app-player-timer [playerName]="'Player 2'" [active]="player2TimerActive" [defaultMinutes]="defaultMinutes"
+        [defaultSeconds]="defaultSeconds" [gameState]="gameState">
+      </app-player-timer>
+    </div>
+    <div *ngIf="gameState.get() === 'reset'" style="justify-content: space-around; display: flex; margin: 2.5% 0">
+      <button mat-raised-button
+        style="padding: 2% 5%; margin: 1%; font-size: 1.25em; background-color:rgb(40, 168, 68); color: white;"
+        (click)="startGame()" onclick="this.blur()">Start</button>
+    </div>
+    <div *ngIf="gameState.get() === 'active'"
+      style="display: flex; align-items: center; justify-content:center; flex-direction: column; margin: 2.5%">
+      <button mat-raised-button
+        style="padding: 2% 5%; margin: 0 1%; font-size: 1.25em; background-color:rgb(206, 168, 0); color: white;"
+        (click)="pauseGame()" onclick="this.blur()">Pause</button>
+      <button mat-raised-button color="warn" style="padding: 2% 5%; margin: 1%; font-size: 1.25em;"
+        (click)="resetGame()" onclick="this.blur()">Reset</button>
+    </div>
+    <div *ngIf="gameState.get() === 'paused'"
+      style="display: flex; align-items: center; justify-content:center; flex-direction: column; margin: 2.5%">
+      <button mat-raised-button
+        style="padding: 2% 5%; margin: 0 1%; font-size: 1.25em; background-color:rgb(0, 189, 126); color: white;"
+        (click)="startGame()" onclick="this.blur()">Resume</button>
+      <button mat-raised-button color="warn" style="padding: 2% 5%; margin: 1%; font-size: 1.25em;"
+        (click)="resetGame()" onclick="this.blur()">Reset</button>
+    </div>
+    <div *ngIf="gameState.get() === 'ended'"
+      style="display: flex; align-items: center; justify-content:center; flex-direction: column; margin: 2.5%">
+      <button mat-raised-button color="warn" style="padding: 2% 5%; margin: 1%; font-size: 1.25em;"
+        (click)="resetGame()" onclick="this.blur()">Reset</button>
+    </div>
+
   </div>
-  <div style="justify-content: space-around; display: flex; margin: 2.5% 0">
-    <button mat-flat-button color="primary" style="padding: 2% 5%; font-size: 1.25em;">Switch</button>
-  </div>
-</mat-card>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import GameState from '../../models/gamestate'
 
 @Component({
   selector: 'app-player-timer',
@@ -9,24 +10,46 @@ export class PlayerTimerComponent implements OnInit {
 
   constructor() { }
 
-
   ngOnInit(): void {
-    // Every second, decrement a second on this timer instance
-    setInterval(() => { this.decrementSecond() }, 1000)
+    this.startTimer()
   }
 
-  active: boolean = true;
-  minutes: number = 10;
-  seconds: number = 5;
+  @Input() active!: boolean;
+  @Input() playerName!: string;
+  @Input() gameState!: GameState;
+  @Input() defaultMinutes!: number;
+  @Input() defaultSeconds!: number;
 
-  timerComplete(outcome: string) {
+  @Output() onEndOfGame: EventEmitter<any> = new EventEmitter<any>();
+
+  minutes: number = this.defaultMinutes;
+  seconds: number = this.defaultSeconds;
+
+  startTimer() {
+    clearInterval() // Doesn't do anything, but I'll keep it here since replacing with an Observable would make sense.
+    // Every second, decrement a second on this timer instance
+    setInterval(() => {
+      console.log(this.gameState.get())
+      if (this.active == true && this.gameState.get() == 'active') {
+        this.decrementSecond()
+      } else if (this.gameState.get() == 'reset') {
+        this.stopTimer()
+        this.resetClock()
+      } else if (this.gameState.get() == 'paused') {
+        this.stopTimer()
+      } else if (this.gameState.get() == 'ended') {
+        this.stopTimer()
+      }
+    }, 1000)
+  }
+
+  stopTimer() {
     clearInterval()
-    if (outcome = "win") {
-      // Turn the background color of the timer box to Green
-    }
-    else {
-      // turn the background color of the timer box to Red
-    }
+  }
+
+  resetClock() {
+    this.minutes = this.defaultMinutes
+    this.seconds = this.defaultSeconds
   }
 
   decrementSecond() {
@@ -41,6 +64,7 @@ export class PlayerTimerComponent implements OnInit {
       else {
         // TODO: Send an event call to the parent module that says which one wins
         clearInterval()
+        this.onEndOfGame.emit('ended')
       }
     }
   }

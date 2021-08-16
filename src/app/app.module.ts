@@ -6,8 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatToolbarModule } from '@angular/material/toolbar'
+
 import { PlayerTimerComponent } from './player-timer/player-timer.component'
 import { NavbarComponent } from './navbar/navbar.component'
 
@@ -28,6 +31,8 @@ Components: Button, Card. Snackbar, Toolbar
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
+    MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
   ],

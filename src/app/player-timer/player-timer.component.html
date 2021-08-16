@@ -1,19 +1,37 @@
+<h1 style="display:flex; justify-content: center;">
+    <b>
+        {{ playerName }}
+    </b>
+</h1>
+
 <mat-card>
-    <h3>
+    <h1 style="font-size:4em;">
         <span *ngIf="minutes >= 10">
             {{ minutes }}
         </span>
         <span *ngIf="minutes < 10">
             {{ "0" + minutes }}
         </span>
-        :
+
+        <span>
+            :
+        </span>
+
         <span *ngIf="seconds >= 10">
             {{ seconds }}
         </span>
         <span *ngIf="seconds < 10">
             {{ "0" + seconds }}
         </span>
-    </h3>
+    </h1>
 
-    <h3> {{ active }} </h3>
 </mat-card>
+
+<h1 style="display:flex; justify-content: center; margin-top: 15%;">
+    <mat-icon *ngIf="active == true" aria-hidden="false" aria-label="Example home icon"
+        style="font-size: 50px; width: 50px;">timer
+    </mat-icon>
+    <mat-icon *ngIf="active == false" aria-hidden="false" aria-label="Example home icon"
+        style="font-size: 50px; width: 50px;">
+    </mat-icon>
+</h1>
