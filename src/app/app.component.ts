@@ -18,6 +18,7 @@ export class AppComponent {
   }
   validateIsKeyPressNumber(event: KeyboardEvent, textboxName: string) {
     this.key = event.key;
+    console.log(event.key)
 
     switch (event.key) {
       case '0':
@@ -45,9 +46,9 @@ export class AppComponent {
             default:
               {
                 console.error("Not sure how you got here, it should be one of the above!")
+                return false;
               }
           }
-          return true;
         }
       default:
         {

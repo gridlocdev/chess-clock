@@ -5,12 +5,12 @@
     <mat-label>Starting time:</mat-label>
     <mat-form-field appearance="fill">
       <mat-label>Minutes</mat-label>
-      <input matInput placeholder="Number of Minutes" (keyup)="validateIsKeyPressNumber($event, 'minutes')"
+      <input matInput placeholder="Number of Minutes" (keypress)="validateIsKeyPressNumber($event, 'minutes')"
         [value]="defaultMinutes">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Seconds</mat-label>
-      <input matInput placeholder="Number of Seconds" (keyup)="validateIsKeyPressNumber($event, 'seconds')"
+      <input matInput placeholder="Number of Seconds" (keypress)="validateIsKeyPressNumber($event, 'seconds')"
         [value]="defaultSeconds">
     </mat-form-field>
     <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
@@ -29,7 +29,7 @@
         [defaultSeconds]="defaultSeconds" [gameState]="gameState">
       </app-player-timer>
     </div>
-    <div *ngIf="gameState.get() === 'reset'" style="justify-content: space-around; display: flex; margin: 2.5% 0">
+    <div *ngIf="gameState.get() === 'reset'" style="display: flex; justify-content: space-around; margin: 2.5%">
       <button mat-raised-button
         style="padding: 2% 5%; margin: 1%; font-size: 1.25em; background-color:rgb(40, 168, 68); color: white;"
         (click)="startGame()" onclick="this.blur()">Start</button>
