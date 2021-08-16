@@ -6,23 +6,30 @@
 
 <mat-card>
     <h1 style="font-size:4em;">
-        <span *ngIf="minutes >= 10">
+        <span *ngIf="!minutes">
+            {{ "00" }}
+        </span>
+        <span *ngIf="!!minutes && minutes >= 10">
             {{ minutes }}
         </span>
-        <span *ngIf="minutes < 10">
+        <span *ngIf="!!minutes && minutes < 10">
             {{ "0" + minutes }}
         </span>
 
         <span>
             :
         </span>
-
-        <span *ngIf="seconds >= 10">
+        
+        <span *ngIf="!seconds">
+            {{ "00" }}
+        </span>
+        <span *ngIf="seconds && seconds >= 10">
             {{ seconds }}
         </span>
-        <span *ngIf="seconds < 10">
+        <span *ngIf="seconds && seconds < 10">
             {{ "0" + seconds }}
         </span>
+
     </h1>
 
 </mat-card>

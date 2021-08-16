@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import GameState from '../models/gamestate'
 
 @Component({
@@ -8,6 +9,8 @@ import GameState from '../models/gamestate'
 })
 export class AppComponent {
   title = 'chess-clock';
+
+  constructor(private _snackbar: MatSnackBar) { }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -35,12 +38,16 @@ export class AppComponent {
           switch (textboxName) {
             case 'minutes':
               {
-                this.defaultMinutes = parseInt((event.target as HTMLTextAreaElement).value)
+                if ((event.target as HTMLTextAreaElement).value)
+                  this.defaultMinutes = parseInt((event.target as HTMLTextAreaElement).value)
+                console.log(this.defaultMinutes)
                 return true
               }
             case 'seconds':
               {
-                this.defaultSeconds = parseInt((event.target as HTMLTextAreaElement).value)
+                if ((event.target as HTMLTextAreaElement).value)
+                  this.defaultSeconds = parseInt((event.target as HTMLTextAreaElement).value)
+                console.log(this.defaultSeconds)
                 return true;
               }
             default:
@@ -53,6 +60,7 @@ export class AppComponent {
       default:
         {
           event.preventDefault();
+          console.log(this.key)
           return false;
         }
     }
@@ -65,6 +73,14 @@ export class AppComponent {
   defaultMinutes: number = 5
   defaultSeconds: number = 0
 
+  openSnackBar(message: string, action: string): void {
+    this._snackbar.open(message, action)
+  }
+
+  closeSnackBar(): void {
+    this._snackbar.dismiss()
+  }
+
   switchTimers(): void {
     this.player1TimerActive = !this.player1TimerActive
     this.player2TimerActive = !this.player2TimerActive
@@ -75,6 +91,7 @@ export class AppComponent {
   }
 
   resetGame(): void {
+    this.closeSnackBar()
     this.gameState.set("reset")
   }
 
@@ -84,6 +101,7 @@ export class AppComponent {
 
   endGame(event: Event): void {
     this.gameState.set("ended")
+    this.openSnackBar("Timer complete!", "Close")
     console.log(event)
   }
 
