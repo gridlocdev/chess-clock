@@ -1,25 +1,39 @@
 <div name="body" style="height: 100%;">
   <app-navbar></app-navbar>
 
-  <form style="display: flex; justify-content: center; align-items: center;">
-    <mat-label>Starting time:</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Minutes</mat-label>
-      <input type="number" matInput placeholder="Number of Minutes" [value]="defaultMinutes"
-        [(ngModel)]="defaultMinutes" [ngModelOptions]="{standalone: true}"
-        (keypress)="validateIsKeyPressNumber($event, 'minutes')">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Seconds</mat-label>
-      <input type="number" matInput placeholder="Number of Seconds" [value]="defaultSeconds"
-        [(ngModel)]="defaultSeconds" [ngModelOptions]="{standalone: true}"
-        (keypress)="validateIsKeyPressNumber($event, 'seconds')">
-    </mat-form-field>
-    <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
-      Switch starting player
-    </button>
-  </form>
+  <mat-card>
+    <form style="display: flex; justify-content: center; align-items: center;">
+      <div style="margin: 0 0.75%;">
+        <mat-label style="opacity: 0.75;">Starting time:</mat-label>
+      </div>
+      <div style="margin: 0 0.75%;">
+        <mat-form-field appearance="fill">
+          <mat-label>Minutes</mat-label>
+          <input type="number" matInput placeholder="Number of Minutes" [value]="defaultMinutes"
+            [(ngModel)]="defaultMinutes" [ngModelOptions]="{standalone: true}"
+            (keypress)="validateIsKeyPressNumber($event, 'minutes')">
+        </mat-form-field>
+      </div>
+      <div style="margin: 0 0.75%;">
+        <mat-form-field appearance="fill">
+          <mat-label>Seconds</mat-label>
+          <input type="number" matInput placeholder="Number of Seconds" [value]="defaultSeconds"
+            [(ngModel)]="defaultSeconds" [ngModelOptions]="{standalone: true}"
+            (keypress)="validateIsKeyPressNumber($event, 'seconds')">
+        </mat-form-field>
+      </div>
+      <div style="margin: 0 0.75%;">
+        <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
+          Switch starting player
+        </button>
+      </div>
+    </form>
 
+    <div style="display: flex; justify-content: center;">
+      <h4 style="margin: 0; opacity: 0.75;">Press <kbd>spacebar</kbd> or <kbd>enter</kbd> to switch the timer to the
+        other player!</h4>
+    </div>
+  </mat-card>
 
   <div>
 
