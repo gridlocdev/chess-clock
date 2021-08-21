@@ -5,10 +5,10 @@
     <mat-card>
       <form fxLayout.lt-sm="column" fxLayout.gt-xs="row" fxLayoutAlign.lt-sm="center"
         fxLayoutAlign.gt-xs="space-around">
-        <div>
+        <div fxLayout="row" fxLayoutAlign="center">
           <mat-label style="opacity: 0.75;">Starting time:</mat-label>
         </div>
-        <div>
+        <div fxLayout="row" fxLayoutAlign="center">
           <mat-form-field appearance="fill">
             <mat-label>Minutes</mat-label>
             <input type="number" matInput placeholder="Number of Minutes" [value]="defaultMinutes"
@@ -16,7 +16,7 @@
               (keypress)="validateIsKeyPressNumber($event, 'minutes')">
           </mat-form-field>
         </div>
-        <div>
+        <div fxLayout="row" fxLayoutAlign="center">
           <mat-form-field appearance="fill">
             <mat-label>Seconds</mat-label>
             <input type="number" matInput placeholder="Number of Seconds" [value]="defaultSeconds"
@@ -24,7 +24,7 @@
               (keypress)="validateIsKeyPressNumber($event, 'seconds')">
           </mat-form-field>
         </div>
-        <div fxHide.lt-md>
+        <div fxLayout="row" fxLayoutAlign="center" fxHide.lt-md>
           <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
             Switch starting player
           </button>
