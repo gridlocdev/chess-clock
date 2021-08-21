@@ -12,4 +12,4 @@ When either player's timer hits 0, both timers pause and a winner message is dis
 
 ## TODO
 
-- Configure production build to a /docs folder, then deploy to GitHub pages!
+- Make the .custom-button-container-lg buttons smaller and more click-able

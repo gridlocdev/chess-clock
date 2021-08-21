@@ -1,11 +1,23 @@
-<h1 style="display:flex; justify-content: center;">
+<h1 fxLayout="row" fxLayoutAlign="center">
     <b>
         {{ playerName }}
     </b>
 </h1>
 
 <mat-card>
-    <h1 style="font-size:4em;">
+    <h1 [ngClass.lt-sm]="{
+        'small-timer-text': true, 
+        'medium-timer-text': false, 
+        'large-timer-text': false
+    }" [ngClass.sm]="{
+        'small-timer-text': false, 
+        'medium-timer-text': true, 
+        'large-timer-text': false
+    }" [ngClass.gt-sm]="{
+        'small-timer-text': false, 
+        'medium-timer-text': false, 
+        'large-timer-text': true
+    }">
         <span *ngIf="!minutes">
             {{ "00" }}
         </span>
@@ -19,7 +31,7 @@
         <span>
             :
         </span>
-        
+
         <span *ngIf="!seconds">
             {{ "00" }}
         </span>
@@ -34,11 +46,10 @@
 
 </mat-card>
 
-<h1 style="display:flex; justify-content: center; margin-top: 15%;">
-    <mat-icon *ngIf="active == true" aria-hidden="false" aria-label="Example home icon"
-        style="font-size: 50px; width: 50px;">timer
+<h1 fxLayout="row" fxLayoutAlign="center" style="margin-top: 15%;">
+    <mat-icon *ngIf="active == true" aria-hidden="false" aria-label="Timer icon" style="font-size: 50px; width: 50px;">
+        timer
     </mat-icon>
-    <mat-icon *ngIf="active == false" aria-hidden="false" aria-label="Example home icon"
-        style="font-size: 50px; width: 50px;">
+    <mat-icon *ngIf="active == false" aria-hidden="false" aria-label="Timer icon" style="font-size: 50px; width: 50px;">
     </mat-icon>
 </h1>

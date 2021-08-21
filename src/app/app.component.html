@@ -1,43 +1,47 @@
-<div name="body" style="height: 100%;">
+<div name="body">
   <app-navbar></app-navbar>
+  <div name="content" fxLayout="column" fxLayoutGap.lt-sm="7.5%" fxLayoutGap.sm="5%" fxLayoutGap.gt-sm="2.5%">
 
-  <mat-card>
-    <form style="display: flex; justify-content: center; align-items: center;">
-      <div style="margin: 0 0.75%;">
-        <mat-label style="opacity: 0.75;">Starting time:</mat-label>
-      </div>
-      <div style="margin: 0 0.75%;">
-        <mat-form-field appearance="fill">
-          <mat-label>Minutes</mat-label>
-          <input type="number" matInput placeholder="Number of Minutes" [value]="defaultMinutes"
-            [(ngModel)]="defaultMinutes" [ngModelOptions]="{standalone: true}"
-            (keypress)="validateIsKeyPressNumber($event, 'minutes')">
-        </mat-form-field>
-      </div>
-      <div style="margin: 0 0.75%;">
-        <mat-form-field appearance="fill">
-          <mat-label>Seconds</mat-label>
-          <input type="number" matInput placeholder="Number of Seconds" [value]="defaultSeconds"
-            [(ngModel)]="defaultSeconds" [ngModelOptions]="{standalone: true}"
-            (keypress)="validateIsKeyPressNumber($event, 'seconds')">
-        </mat-form-field>
-      </div>
-      <div style="margin: 0 0.75%;">
-        <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
-          Switch starting player
-        </button>
-      </div>
-    </form>
+    <mat-card>
+      <form fxLayout.lt-sm="column" fxLayout.gt-xs="row" fxLayoutAlign.lt-sm="center"
+        fxLayoutAlign.gt-xs="space-around">
+        <div>
+          <mat-label style="opacity: 0.75;">Starting time:</mat-label>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Minutes</mat-label>
+            <input type="number" matInput placeholder="Number of Minutes" [value]="defaultMinutes"
+              [(ngModel)]="defaultMinutes" [ngModelOptions]="{standalone: true}"
+              (keypress)="validateIsKeyPressNumber($event, 'minutes')">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Seconds</mat-label>
+            <input type="number" matInput placeholder="Number of Seconds" [value]="defaultSeconds"
+              [(ngModel)]="defaultSeconds" [ngModelOptions]="{standalone: true}"
+              (keypress)="validateIsKeyPressNumber($event, 'seconds')">
+          </mat-form-field>
+        </div>
+        <div fxHide.lt-md>
+          <button mat-raised-button (click)="switchTimers(); $event.preventDefault()" onclick="this.blur()">
+            Switch starting player
+          </button>
+        </div>
+      </form>
 
-    <div style="display: flex; justify-content: center;">
-      <h4 style="margin: 0; opacity: 0.75;">Press <kbd>spacebar</kbd> or <kbd>enter</kbd> to switch the timer to the
-        other player!</h4>
-    </div>
-  </mat-card>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <h4 name="desktop-message" fxHide.lt-md style="margin: 0; opacity: 0.75;">Press <b><kbd>spacebar</kbd></b> or
+          <b><kbd>enter</kbd></b> to switch the timer to the other player!
+        </h4>
+        <h4 name="mobile-message" fxHide.gt-sm style="margin: 0; opacity: 0.75;">Tap <b>Switch</b> to move the timer to
+          the other player!
+        </h4>
+      </div>
+    </mat-card>
 
-  <div>
-
-    <div style="justify-content: space-around; display: flex; margin: 2.5% 0">
+    <div fxLayout="row" fxLayoutAlign="space-around">
       <app-player-timer [playerName]="'Player 1'" [active]="player1TimerActive" [defaultMinutes]="defaultMinutes"
         [defaultSeconds]="defaultSeconds" [gameState]="gameState" (onEndOfGame)="endGame($event)">
       </app-player-timer>
@@ -45,33 +49,48 @@
         [defaultSeconds]="defaultSeconds" [gameState]="gameState">
       </app-player-timer>
     </div>
-    <div *ngIf="gameState.get() === 'reset'" style="display: flex; justify-content: space-around; margin: 2.5%">
-      <button mat-raised-button
-        style="padding: 2% 5%; margin: 1%; font-size: 1.25em; background-color:rgb(40, 168, 68); color: white;"
-        (click)="startGame()" onclick="this.blur()">Start</button>
+
+    <div fxLayout="column" fxLayoutAlign="center" [ngClass.lt-sm]="{
+    'custom-button-container-sm': true,
+    'custom-button-container-md': false,
+    'custom-button-container-lg': false
+    }" [ngClass.sm]="{
+      'custom-button-container-sm': false,
+      'custom-button-container-md': true,
+      'custom-button-container-lg': false
+      }" [ngClass.gt-sm]="{
+        'custom-button-container-sm': false,
+        'custom-button-container-md': false,
+        'custom-button-container-lg': true
+        }" fxLayoutGap.lt-md="5%">
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <button class="custom-button-md button-switch" fxHide.gt-sm mat-raised-button (click)="switchTimers()"
+          onclick="this.blur()">Switch</button>
+      </div>
+
+      <div *ngIf="gameState.get() === 'reset'" fxLayout="column" fxLayoutGap="3%">
+        <button class="custom-button-md button-start" mat-raised-button (click)="startGame()"
+          onclick="this.blur()">Start</button>
+      </div>
+      <div *ngIf="gameState.get() === 'active'" fxLayout="column" fxLayoutGap="3%">
+        <button class="custom-button-md button-pause" mat-raised-button (click)="pauseGame()"
+          onclick="this.blur()">Pause</button>
+        <button class="custom-button-md button-reset" mat-raised-button (click)="resetGame()"
+          onclick="this.blur()">Reset</button>
+      </div>
+      <div *ngIf="gameState.get() === 'paused'" fxLayout="column" fxLayoutGap="3%">
+        <button class="custom-button-md button-resume" mat-raised-button (click)="startGame()"
+          onclick="this.blur()">Resume</button>
+        <button class="custom-button-md button-reset" mat-raised-button (click)="resetGame()"
+          onclick="this.blur()">Reset</button>
+      </div>
+      <div *ngIf="gameState.get() === 'ended'" fxLayout="column" fxLayoutGap="3%">
+        <button class="custom-button-md button-reset" mat-raised-button (click)="resetGame()"
+          onclick="this.blur()">Reset</button>
+      </div>
+
     </div>
-    <div *ngIf="gameState.get() === 'active'"
-      style="display: flex; align-items: center; justify-content:center; flex-direction: column; margin: 2.5%">
-      <button mat-raised-button
-        style="padding: 2% 5%; margin: 0 1%; font-size: 1.25em; background-color:rgb(206, 168, 0); color: white;"
-        (click)="pauseGame()" onclick="this.blur()">Pause</button>
-      <button mat-raised-button color="warn" style="padding: 2% 5%; margin: 1%; font-size: 1.25em;"
-        (click)="resetGame()" onclick="this.blur()">Reset</button>
-    </div>
-    <div *ngIf="gameState.get() === 'paused'"
-      style="display: flex; align-items: center; justify-content:center; flex-direction: column; margin: 2.5%">
-      <button mat-raised-button
-        style="padding: 2% 5%; margin: 0 1%; font-size: 1.25em; background-color:rgb(0, 189, 126); color: white;"
-        (click)="startGame()" onclick="this.blur()">Resume</button>
-      <button mat-raised-button color="warn" style="padding: 2% 5%; margin: 1%; font-size: 1.25em;"
-        (click)="resetGame()" onclick="this.blur()">Reset</button>
-    </div>
-    <div *ngIf="gameState.get() === 'ended'"
-      style="display: flex; align-items: center; justify-content:center; flex-direction: column; margin: 2.5%">
-      <button mat-raised-button color="warn" style="padding: 2% 5%; margin: 1%; font-size: 1.25em;"
-        (click)="resetGame()" onclick="this.blur()">Reset</button>
-    </div>
+
   </div>
-
-
 </div>
