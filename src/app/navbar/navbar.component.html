@@ -1,4 +1,10 @@
-<mat-toolbar [ngClass.lt-sm]="{'app-toolbar': true}">
+<mat-toolbar fxLayout="row" [ngClass.lt-sm]="{'app-toolbar': true}">
     <mat-icon aria-hidden="false" aria-label="Example home icon">punch_clock</mat-icon>
-    <span style="margin: 0.5%;">Chess Clock</span>
+    <span fxFlex style="margin: 0.5%;">Chess Clock</span>
+
+    <button mat-stroked-button style="height: 100%;"
+        (click)="toggleMobileAudioEnabled()" onclick="this.blur()">
+        <mat-icon *ngIf="mobileAudioEnabled">volume_up</mat-icon>
+        <mat-icon *ngIf="!mobileAudioEnabled">volume_off</mat-icon>
+    </button>
 </mat-toolbar>

@@ -11,6 +11,8 @@ export class AppComponent {
   title = 'chess-clock';
 
   isMobileDevice: boolean = false
+  mobileAudioEnabled: boolean = false
+  audioSingleton: HTMLAudioElement = new Audio()
 
   gameState: GameState = new GameState("reset")
   key: string = ""
@@ -23,6 +25,10 @@ export class AppComponent {
 
   ngOnInit() {
     this.isMobileDevice = this.detectMobileDevice(window.navigator.userAgent)
+
+    this.audioSingleton.src = "assets/audio/chime.mp3"
+    this.audioSingleton.load()
+    this.audioSingleton.volume = 0.5
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -36,6 +42,29 @@ export class AppComponent {
   detectMobileDevice(userAgent: string): boolean {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent)
     return isMobile
+  }
+
+  setMobileAudioState(event: Event) {
+    this.mobileAudioEnabled = !this.mobileAudioEnabled
+    console.log(this.mobileAudioEnabled)
+    if (this.mobileAudioEnabled == true) {
+      this.playMobileAudioStateChangeAudio()
+    }
+  }
+
+  /* For a sound to play on mobile devices, an action needs to take place that plays audio. 
+  Upstream to this method, clicking the "Toggle Mobile Audio" button is this action.
+  This method plays a brief audio clip so that the next sound is available to play.   
+  */
+  playMobileAudioStateChangeAudio() {
+    this.audioSingleton.play()
+  }
+
+  /* At some later point, I may change the sound on the "Toggle Mobile Audio" button, 
+  so I've separated this method from the one above it in the application logic.
+  */
+  playGameEndAudio() {
+    this.audioSingleton.play()
   }
 
   validateIsKeyPressNumber(event: KeyboardEvent, textboxName: string) {
@@ -109,6 +138,9 @@ export class AppComponent {
   }
 
   endGame(event: Event): void {
+    if (this.mobileAudioEnabled == true) {
+      this.playGameEndAudio()
+    }
     this.gameState.set("ended")
     this.openSnackBar("Timer complete!", "Close")
   }
