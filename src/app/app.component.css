@@ -1,21 +1,63 @@
-.custom-button-container-sm div button {
+.custom-button-container-desktop-sm div button {
     padding: 3% 7.5%; 
     font-size: 1.5em;
     width: 30%;
     margin: auto;
 }
 
-.custom-button-container-md div button {
+.custom-button-container-desktop-md div button {
     padding: 3% 7.5%; 
     font-size: 1.5em;
     width: 25%;
     margin: auto;
 }
 
-.custom-button-container-lg div button {
-    padding: 3% 7.5%; 
+.custom-button-container-desktop-lg div button {
+    padding: 2% 5%; 
     font-size: 1.5em;
-    width: 20%;
+    width: 15%;
+    margin: auto;
+}
+
+.custom-button-container-mobile-sm div button.button-switch {
+    padding: 7.5% 7.5%; 
+    font-size: 1.5em;
+    width: 75%;
+    margin: auto;
+}
+
+.custom-button-container-mobile-md div button.button-switch {
+    padding: 7.5% 7.5%; 
+    font-size: 1.5em;
+    width: 75%;
+    margin: auto;
+}
+
+.custom-button-container-mobile-lg div button.button-switch {
+    padding: 5% 7.5%; 
+    font-size: 1.5em;
+    width: 50%;
+    margin: auto;
+}
+
+.custom-button-container-mobile-sm div :not(button.button-switch) {
+    padding: 5% 7.5%; 
+    font-size: 1.5em;
+    width: 30%;
+    margin: auto;
+}
+
+.custom-button-container-mobile-md div :not(button.button-switch) {
+    padding: 5% 7.5%; 
+    font-size: 1.5em;
+    width: 25%;
+    margin: auto;
+}
+
+.custom-button-container-mobile-lg div :not(button.button-switch) {
+    padding: 5% 7.5%; 
+    font-size: 1.5em;
+    width: 25%;
     margin: auto;
 }
 

@@ -32,10 +32,12 @@
       </form>
 
       <div fxLayout="row" fxLayoutAlign="center">
-        <h4 name="desktop-message" fxHide.lt-md style="margin: 0; opacity: 0.75;">Press <b><kbd>spacebar</kbd></b> or
+        <h4 name="desktop-message" [fxHide]="this.isMobileDevice" style="margin: 0; opacity: 0.75;">Press
+          <b><kbd>spacebar</kbd></b> or
           <b><kbd>enter</kbd></b> to switch the timer to the other player!
         </h4>
-        <h4 name="mobile-message" fxHide.gt-sm style="margin: 0; opacity: 0.75;">Tap <b>Switch</b> to move the timer to
+        <h4 name="mobile-message" [fxHide]="!this.isMobileDevice" style="margin: 0; opacity: 0.75;">Tap <b>Switch</b> to
+          move the timer to
           the other player!
         </h4>
       </div>
@@ -51,21 +53,30 @@
     </div>
 
     <div fxLayout="column" fxLayoutAlign="center" [ngClass.lt-sm]="{
-    'custom-button-container-sm': true,
-    'custom-button-container-md': false,
-    'custom-button-container-lg': false
+    'custom-button-container-desktop-sm': !isMobileDevice,
+    'custom-button-container-desktop-md': false,
+    'custom-button-container-desktop-lg': false,
+    'custom-button-container-mobile-sm': isMobileDevice,
+    'custom-button-container-mobile-md': false,
+    'custom-button-container-mobile-lg': false
     }" [ngClass.sm]="{
-      'custom-button-container-sm': false,
-      'custom-button-container-md': true,
-      'custom-button-container-lg': false
+      'custom-button-container-desktop-sm': false,
+      'custom-button-container-desktop-md': !isMobileDevice,
+      'custom-button-container-desktop-lg': false,
+      'custom-button-container-mobile-sm': false,
+      'custom-button-container-mobile-md': isMobileDevice,
+      'custom-button-container-mobile-lg': false
       }" [ngClass.gt-sm]="{
-        'custom-button-container-sm': false,
-        'custom-button-container-md': false,
-        'custom-button-container-lg': true
-        }" fxLayoutGap.lt-md="5%">
+        'custom-button-container-desktop-sm': false,
+        'custom-button-container-desktop-md': false,
+        'custom-button-container-desktop-lg': !isMobileDevice,
+        'custom-button-container-mobile-sm': false,
+        'custom-button-container-mobile-md': false,
+        'custom-button-container-mobile-lg': isMobileDevice
+        }" fxLayoutGap="5%">
 
-      <div fxLayout="row" fxLayoutAlign="center">
-        <button class="custom-button-md button-switch" fxHide.gt-sm mat-raised-button (click)="switchTimers()"
+      <div [fxHide]="!this.isMobileDevice" fxLayout="row" fxLayoutAlign="center">
+        <button class="custom-button-md button-switch" mat-raised-button (click)="switchTimers()"
           onclick="this.blur()">Switch</button>
       </div>
 

@@ -12,4 +12,4 @@ When either player's timer hits 0, both timers pause and a winner message is dis
 
 ## TODO
 
-- Make the .custom-button-container-lg buttons smaller and more click-able
+- Replace the timer with an Observable timer for smoother reset, rather than operating on 1000ms cycles

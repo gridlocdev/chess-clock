@@ -10,7 +10,21 @@ import GameState from '../models/gamestate'
 export class AppComponent {
   title = 'chess-clock';
 
+  isMobileDevice: boolean = false
+
+  gameState: GameState = new GameState("reset")
+  key: string = ""
+  player1TimerActive: boolean = true
+  player2TimerActive: boolean = false
+  defaultMinutes: number = 5
+  defaultSeconds: number = 0
+
   constructor(private _snackbar: MatSnackBar) { }
+
+  ngOnInit() {
+    this.isMobileDevice = this.detectMobileDevice(window.navigator.userAgent)
+    console.log(this.isMobileDevice)
+  }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -19,6 +33,12 @@ export class AppComponent {
       this.switchTimers()
     }
   }
+
+  detectMobileDevice(userAgent: string): boolean {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent)
+    return isMobile
+  }
+
   validateIsKeyPressNumber(event: KeyboardEvent, textboxName: string) {
     this.key = event.key;
     console.log(event.key)
@@ -66,12 +86,6 @@ export class AppComponent {
     }
   }
 
-  gameState: GameState = new GameState("reset")
-  key: string = ""
-  player1TimerActive: boolean = true
-  player2TimerActive: boolean = false
-  defaultMinutes: number = 5
-  defaultSeconds: number = 0
 
   openSnackBar(message: string, action: string): void {
     this._snackbar.open(message, action)
