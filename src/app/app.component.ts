@@ -23,7 +23,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.isMobileDevice = this.detectMobileDevice(window.navigator.userAgent)
-    console.log(this.isMobileDevice)
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -41,7 +40,6 @@ export class AppComponent {
 
   validateIsKeyPressNumber(event: KeyboardEvent, textboxName: string) {
     this.key = event.key;
-    console.log(event.key)
 
     switch (event.key) {
       case '0':
@@ -60,14 +58,12 @@ export class AppComponent {
               {
                 if ((event.target as HTMLTextAreaElement).value)
                   this.defaultMinutes = parseInt((event.target as HTMLTextAreaElement).value)
-                console.log(this.defaultMinutes)
                 return true
               }
             case 'seconds':
               {
                 if ((event.target as HTMLTextAreaElement).value)
                   this.defaultSeconds = parseInt((event.target as HTMLTextAreaElement).value)
-                console.log(this.defaultSeconds)
                 return true;
               }
             default:
@@ -80,7 +76,6 @@ export class AppComponent {
       default:
         {
           event.preventDefault();
-          console.log(this.key)
           return false;
         }
     }
@@ -116,7 +111,6 @@ export class AppComponent {
   endGame(event: Event): void {
     this.gameState.set("ended")
     this.openSnackBar("Timer complete!", "Close")
-    console.log(event)
   }
 
 }

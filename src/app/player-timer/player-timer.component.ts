@@ -29,7 +29,6 @@ export class PlayerTimerComponent implements OnInit {
     clearInterval() // Doesn't do anything, but I'll keep it here since replacing with an Observable would make sense.
     // Every second, decrement a second on this timer instance
     setInterval(() => {
-      console.log(this.gameState.get())
       if (this.active == true && this.gameState.get() == 'active') {
         this.decrementSecond()
       } else if (this.gameState.get() == 'reset') {
