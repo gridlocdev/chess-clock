@@ -21,7 +21,7 @@
 
 	let minutes = $state(defaultMinutes);
 	let seconds = $state(defaultSeconds);
-	let intervalId: number | null = null;
+	let intervalId: ReturnType<typeof setInterval> | null = null;
 
 	// Start timer effect
 	$effect(() => {
