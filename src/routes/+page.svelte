@@ -361,7 +361,7 @@
 	}
 
 	.custom-button-md {
-		padding: 12px 24px;
+		padding: 2rem;
 		font-size: 1.5em;
 		width: 100%;
 		min-width: 200px;

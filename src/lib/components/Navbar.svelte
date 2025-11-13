@@ -84,6 +84,7 @@
 		border: 1px solid rgba(255, 255, 255, 0.5);
 		color: white;
 		padding: 8px;
+		aspect-ratio: 1 / 1;
 		cursor: pointer;
 		border-radius: 4px;
 		display: flex;
@@ -98,7 +99,6 @@
 	}
 
 	.audio-button:focus {
-		outline: 2px solid rgba(255, 255, 255, 0.5);
 		outline-offset: 2px;
 	}
 
