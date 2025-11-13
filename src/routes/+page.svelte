@@ -120,6 +120,7 @@
 						<input
 							id="minutes"
 							type="number"
+							min="0"
 							placeholder="Number of Minutes"
 							bind:value={defaultMinutes}
 							onkeypress={validateIsKeyPressNumber}
@@ -132,6 +133,7 @@
 						<input
 							id="seconds"
 							type="number"
+							min="0"
 							placeholder="Number of Seconds"
 							bind:value={defaultSeconds}
 							onkeypress={validateIsKeyPressNumber}
