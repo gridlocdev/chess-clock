@@ -1,38 +1,12 @@
-# sv
+# Chess Clock
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Years ago, I wanted to make a simple app to test my skills learning web development. So I built a chess clock since I was learning chess at the time. It's a simple two-player timer that switches between players when you press a button.
 
-## Creating a project
+## ![screenshot of chess clock app](app-screenshot.png)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## How to use it
 
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+1. Set a time that each player should be allotted (in minutes and seconds)
+2. Press **Start** to begin the game
+3. When a player completes their move, press **spacebar** or **enter** on the keyboard to switch to the other player's timer. (On mobile, tap the **Switch** button.)
+4. The game ends when one player's time runs out.
