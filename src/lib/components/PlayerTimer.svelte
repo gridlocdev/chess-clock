@@ -4,10 +4,7 @@
 	interface PlayerTimerProps {
 		active: boolean;
 		playerName: string;
-		gameState: {
-			get: () => GameStateType;
-			set: (state: GameStateType) => void;
-		};
+		gameState: GameStateType;
 		defaultMinutes: number;
 		defaultSeconds: number;
 		onEndOfGame?: () => void;
@@ -24,66 +21,40 @@
 
 	let minutes = $state(defaultMinutes);
 	let seconds = $state(defaultSeconds);
-	let intervalId: ReturnType<typeof setInterval> | null = null;
 
-	// Start timer effect
+	// Use $derived for formatted time display
+	let formattedMinutes = $derived(minutes < 10 ? `0${minutes}` : `${minutes}`);
+	let formattedSeconds = $derived(seconds < 10 ? `0${seconds}` : `${seconds}`);
+
+	// Reset timer when gameState becomes 'reset'
 	$effect(() => {
-		// Clear any existing interval
-		if (intervalId !== null) {
-			clearInterval(intervalId);
-		}
-
-		// Set up new interval
-		intervalId = setInterval(() => {
-			if (active && gameState.get() === 'active') {
-				decrementSecond();
-			} else if (gameState.get() === 'reset') {
-				resetClock();
-			}
-		}, 1000);
-
-		// Cleanup function
-		return () => {
-			if (intervalId !== null) {
-				clearInterval(intervalId);
-			}
-		};
-	});
-
-	// Reset clock when defaults change
-	$effect(() => {
-		if (gameState.get() === 'reset') {
+		if (gameState === 'reset') {
 			minutes = defaultMinutes;
 			seconds = defaultSeconds;
 		}
 	});
 
-	function resetClock() {
-		minutes = defaultMinutes;
-		seconds = defaultSeconds;
-	}
+	// Timer interval effect - only runs when active and game is active
+	$effect(() => {
+		if (!active || gameState !== 'active') {
+			return;
+		}
 
-	function decrementSecond() {
-		if (seconds > 0) {
-			seconds--;
-		} else {
-			if (minutes > 0) {
+		const intervalId = setInterval(() => {
+			if (seconds > 0) {
+				seconds--;
+			} else if (minutes > 0) {
 				seconds = 59;
 				minutes--;
 			} else {
 				// Timer has ended
-				if (intervalId !== null) {
-					clearInterval(intervalId);
-				}
 				onEndOfGame?.();
 			}
-		}
-	}
+		}, 1000);
 
-	// Format number with leading zero
-	function formatTime(value: number): string {
-		return value < 10 ? `0${value}` : `${value}`;
-	}
+		// Cleanup function
+		return () => clearInterval(intervalId);
+	});
 </script>
 
 <div class="player-timer-container">
@@ -93,9 +64,9 @@
 
 	<div class="timer-card">
 		<h1 class="timer-text">
-			<span>{formatTime(minutes)}</span>
+			<span>{formattedMinutes}</span>
 			<span>:</span>
-			<span>{formatTime(seconds)}</span>
+			<span>{formattedSeconds}</span>
 		</h1>
 	</div>
 

@@ -2,19 +2,17 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import PlayerTimer from '$lib/components/PlayerTimer.svelte';
 	import type { GameStateType } from '$lib/models/gamestate';
-	import { onMount } from 'svelte';
 
 	let isMobileDevice = $state(false);
 	let mobileAudioEnabled = $state(false);
-	let audioSingleton: HTMLAudioElement | null = null;
+	let audioSingleton = $state<HTMLAudioElement | null>(null);
 
+	// Simplified game state - just use $state directly
 	let gameStateValue = $state<GameStateType>('reset');
-	const gameState = {
-		get: () => gameStateValue,
-		set: (state: GameStateType) => {
-			gameStateValue = state;
-		}
-	};
+
+	// Use $derived for computed form class
+	let formClass = $derived(isMobileDevice ? 'form-container-mobile' : 'form-container-desktop');
+
 	let player1TimerActive = $state(true);
 	let player2TimerActive = $state(false);
 	let defaultMinutes = $state(5);
@@ -23,13 +21,15 @@
 	let snackbarMessage = $state('');
 	let snackbarVisible = $state(false);
 
-	onMount(() => {
+	// Initialize audio and detect mobile device on mount
+	$effect(() => {
 		isMobileDevice = detectMobileDevice(window.navigator.userAgent);
 
-		audioSingleton = new Audio();
-		audioSingleton.src = '/assets/audio/chime.mp3';
-		audioSingleton.load();
-		audioSingleton.volume = 0.5;
+		const audio = new Audio();
+		audio.src = '/assets/audio/chime.mp3';
+		audio.load();
+		audio.volume = 0.5;
+		audioSingleton = audio;
 	});
 
 	function detectMobileDevice(userAgent: string): boolean {
@@ -73,23 +73,23 @@
 	}
 
 	function startGame() {
-		gameState.set('active');
+		gameStateValue = 'active';
 	}
 
 	function resetGame() {
 		closeSnackBar();
-		gameState.set('reset');
+		gameStateValue = 'reset';
 	}
 
 	function pauseGame() {
-		gameState.set('paused');
+		gameStateValue = 'paused';
 	}
 
 	function endGame() {
 		if (mobileAudioEnabled) {
 			playGameEndAudio();
 		}
-		gameState.set('ended');
+		gameStateValue = 'ended';
 		openSnackBar('Timer complete!');
 	}
 
@@ -110,7 +110,7 @@
 
 	<div class="content-container">
 		<div class="card">
-			<form class={isMobileDevice ? 'form-container-mobile' : 'form-container-desktop'}>
+			<form class={formClass}>
 				<div class="form-row">
 					<span style="opacity: 0.75;">Starting time:</span>
 				</div>
@@ -160,7 +160,7 @@
 				active={player1TimerActive}
 				{defaultMinutes}
 				{defaultSeconds}
-				{gameState}
+				gameState={gameStateValue}
 				onEndOfGame={endGame}
 			/>
 			<PlayerTimer
@@ -168,7 +168,7 @@
 				active={player2TimerActive}
 				{defaultMinutes}
 				{defaultSeconds}
-				{gameState}
+				gameState={gameStateValue}
 			/>
 		</div>
 
@@ -179,21 +179,21 @@
 				</div>
 			{/if}
 
-			{#if gameState.get() === 'reset'}
+			{#if gameStateValue === 'reset'}
 				<div class="button-group">
 					<button class="custom-button-md button-start" onclick={startGame}>Start</button>
 				</div>
-			{:else if gameState.get() === 'active'}
+			{:else if gameStateValue === 'active'}
 				<div class="button-group">
 					<button class="custom-button-md button-pause" onclick={pauseGame}>Pause</button>
 					<button class="custom-button-md button-reset" onclick={resetGame}>Reset</button>
 				</div>
-			{:else if gameState.get() === 'paused'}
+			{:else if gameStateValue === 'paused'}
 				<div class="button-group">
 					<button class="custom-button-md button-resume" onclick={startGame}>Resume</button>
 					<button class="custom-button-md button-reset" onclick={resetGame}>Reset</button>
 				</div>
-			{:else if gameState.get() === 'ended'}
+			{:else if gameStateValue === 'ended'}
 				<div class="button-group">
 					<button class="custom-button-md button-reset" onclick={resetGame}>Reset</button>
 				</div>
