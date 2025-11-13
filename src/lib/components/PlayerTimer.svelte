@@ -1,10 +1,13 @@
 <script lang="ts">
-	import { GameState } from '$lib/models/gamestate';
+	import type { GameStateType } from '$lib/models/gamestate';
 
 	interface PlayerTimerProps {
 		active: boolean;
 		playerName: string;
-		gameState: GameState;
+		gameState: {
+			get: () => GameStateType;
+			set: (state: GameStateType) => void;
+		};
 		defaultMinutes: number;
 		defaultSeconds: number;
 		onEndOfGame?: () => void;

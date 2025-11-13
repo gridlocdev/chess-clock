@@ -1,14 +1,20 @@
 <script lang="ts">
 	import Navbar from '$lib/components/Navbar.svelte';
 	import PlayerTimer from '$lib/components/PlayerTimer.svelte';
-	import { GameState } from '$lib/models/gamestate';
+	import type { GameStateType } from '$lib/models/gamestate';
 	import { onMount } from 'svelte';
 
 	let isMobileDevice = $state(false);
 	let mobileAudioEnabled = $state(false);
 	let audioSingleton: HTMLAudioElement | null = null;
 
-	let gameState = $state(new GameState('reset'));
+	let gameStateValue = $state<GameStateType>('reset');
+	const gameState = {
+		get: () => gameStateValue,
+		set: (state: GameStateType) => {
+			gameStateValue = state;
+		}
+	};
 	let player1TimerActive = $state(true);
 	let player2TimerActive = $state(false);
 	let defaultMinutes = $state(5);
@@ -73,8 +79,6 @@
 	function resetGame() {
 		closeSnackBar();
 		gameState.set('reset');
-		// Force re-render by creating new instance
-		gameState = new GameState('reset');
 	}
 
 	function pauseGame() {
@@ -358,17 +362,18 @@
 		padding: 12px 24px;
 		font-size: 1.5em;
 		width: 100%;
-		max-width: 300px;
+		min-width: 200px;
 		margin: auto;
+		white-space: nowrap;
 	}
 
 	.button-container:not(.mobile-mode) .custom-button-md {
-		width: 30%;
+		min-width: 250px;
 	}
 
 	@media (min-width: 960px) {
 		.button-container:not(.mobile-mode) .custom-button-md {
-			width: 15%;
+			min-width: 300px;
 		}
 	}
 
