@@ -109,7 +109,7 @@
 	<Navbar {mobileAudioEnabled} onMobileAudioToggle={setMobileAudioState} />
 
 	<div class="content-container">
-		<div class="card">
+		<div class="card pb-0">
 			<form class={formClass}>
 				<div class="form-row">
 					<span style="opacity: 0.75;">Starting time:</span>
@@ -145,13 +145,12 @@
 				</div>
 			</form>
 
-			<div class="flex-row flex-center">
+			<div class="flex-row flex-center instruction-label">
 				<h4 class:hidden={isMobileDevice} style="margin: 0; opacity: 0.75;">
-					Press <b><kbd>spacebar</kbd></b> or <b><kbd>enter</kbd></b> to switch the timer to the other
-					player!
+					Press <kbd>spacebar</kbd> or <kbd>enter</kbd> to switch the timer to the other player!
 				</h4>
 				<h4 class:hidden={!isMobileDevice} style="margin: 0; opacity: 0.75;">
-					Tap <b>Switch</b> to move the timer to the other player!
+					Tap <kbd>Switch</kbd> to move the timer to the other player!
 				</h4>
 			</div>
 		</div>
@@ -251,6 +250,25 @@
 		margin-bottom: 20px;
 	}
 
+	.pb-0 {
+		padding-bottom: 0;
+	}
+
+	kbd {
+		margin: 0 0.25rem;
+		background-color: #f5f5f5; /* matches input background */
+		border-radius: 6px;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		color: rgba(0, 0, 0, 0.75);
+		display: inline-block;
+		font-size: 0.9rem;
+		line-height: 1;
+		padding: 6px 8px;
+		vertical-align: middle;
+		white-space: nowrap;
+		letter-spacing: 0.02em;
+	}
+
 	.form-container-mobile {
 		display: flex;
 		flex-direction: column;
@@ -327,10 +345,6 @@
 		}
 	}
 
-	.hidden {
-		display: none;
-	}
-
 	.flex-row {
 		display: flex;
 		flex-direction: row;
@@ -344,6 +358,20 @@
 	.flex-center {
 		justify-content: center;
 		align-items: center;
+	}
+
+	.instruction-label {
+		min-height: 48px;
+	}
+
+	.instruction-label h4 {
+		line-height: 1;
+		display: flex;
+		align-items: center;
+	}
+
+	.instruction-label h4.hidden {
+		display: none !important;
 	}
 
 	.flex-space-around {
