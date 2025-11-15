@@ -26,7 +26,7 @@
 		isMobileDevice = detectMobileDevice(window.navigator.userAgent);
 
 		const audio = new Audio();
-		audio.src = '/assets/audio/chime.mp3';
+		audio.src = './assets/audio/chime.mp3';
 		audio.load();
 		audio.volume = 0.5;
 		audioSingleton = audio;
